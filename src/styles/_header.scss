@@ -1,0 +1,34 @@
+@mixin flexCenter() {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+header {
+  @include flexCenter();
+  form {
+    height: auto;
+    width: auto;
+    display: flex;
+    align-items: center;
+    gap: 5px
+  }
+  button {
+    height: 25px;
+    background: $primaryBtn;
+    color: $textColorWhite;
+    border: 1px solid $borderColor;
+    border-radius: 5px;
+    &:hover {
+      transition: 0.5s;
+      background: $hoverBtn;
+    };
+  }
+  input {
+    height: 25px;
+    background: $bgLight;
+    color: $textColorWhite;
+    border: 1px solid $borderColor;
+    border-radius: 5px;
+  }
+}

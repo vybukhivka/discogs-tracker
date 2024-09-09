@@ -1,0 +1,35 @@
+body {
+  background-color: rgb(25, 25, 25);
+  color: rgb(224, 224, 224);
+}
+
+header {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+header form {
+  height: auto;
+  width: auto;
+  display: flex;
+  align-items: center;
+  gap: 5px;
+}
+header button {
+  height: 25px;
+  background: rgb(35, 91, 71);
+  color: rgb(224, 224, 224);
+  border: 1px solid rgb(75, 75, 75);
+  border-radius: 5px;
+}
+header button:hover {
+  transition: 0.5s;
+  background: rgb(45, 119, 93);
+}
+header input {
+  height: 25px;
+  background: rgb(55, 55, 55);
+  color: rgb(224, 224, 224);
+  border: 1px solid rgb(75, 75, 75);
+  border-radius: 5px;
+}/*# sourceMappingURL=style.css.map */
