@@ -1,11 +1,22 @@
-@mixin flexCenter() {
+@mixin flexCenter($direction) {
   display: flex;
   justify-content: center;
   align-items: center;
+  flex-direction: $direction
 }
 
 header {
-  @include flexCenter();
+  @include flexCenter(row);
+  justify-content: space-between;
+  
+  padding: 0 4rem;
+  nav ul{
+    @include flexCenter(row);
+    gap: 10px;
+  }
+  nav ul li {
+    list-style: none
+  }
   form {
     height: auto;
     width: auto;
@@ -14,7 +25,8 @@ header {
     gap: 5px
   }
   button {
-    height: 25px;
+    height: $nav-height;
+    width: $nav-width;
     background: $primaryBtn;
     color: $textColorWhite;
     border: 1px solid $borderColor;
@@ -25,7 +37,8 @@ header {
     };
   }
   input {
-    height: 25px;
+    height: $nav-height;
+    padding-left: 1em;
     background: $bgLight;
     color: $textColorWhite;
     border: 1px solid $borderColor;

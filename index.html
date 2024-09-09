@@ -1,13 +1,68 @@
-<!DOCTYPE html
-<html lang="en">
+<!DOCTYPE html <html lang="en">
+
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Document</title>
+  <link rel="stylesheet" href="./src/styles/style.css">
+  <title>Discogs Price Tracker</title>
 </head>
+
 <body>
-  <header>
-    <h1>Hello world</h1>
-  </header>
+  <div class="container">
+    <header class="header">
+      <form class="search">
+        <input type="text" class="search__field" placeholder="Start typing..." />
+      </form>
+
+      <nav class="nav">
+        <ul class="nav__list">
+          <li class="nav__item">
+            <button class="nav__btn nav__btn--add-release">
+              <span>Add release</span>
+            </button>
+          </li>
+          <li class="nav__item">
+            <button class="nav__btn nav__btn--bookmarks">
+              <span>Bookmarks</span>
+            </button>
+            <div class="bookmarks">
+              <ul class="bookmarks__list">
+                <div class="message">
+                </div>
+              </ul>
+            </div>
+          </li>
+        </ul>
+      </nav>
+    </header>
+
+    <div class="search-results">
+      <ul class="results">
+        <!-- preview results -->
+      </ul>
+
+      <div class="pagination">
+        <!-- pagination -->
+      </div>
+      <p class="copyright">
+        <!-- copyright -->
+      </p>
+    </div>
+
+    <div class="release">
+    </div>
+  </div>
+
+  <div class="overlay hidden"></div>
+  <div class="add-release-window hidden">
+    <button class="btn--close-modal">&times;</button>
+    <form action="" class="upload">
+      <div class="upload__column">
+        <h3 class="uploading__heading">Release data</h3>
+        <label>Title</label>
+        <input type="TEST" required name="title" type="text" />
+      </div>
+    </form>
+  </div>
 </body>
 </html>

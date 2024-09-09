@@ -1,12 +1,53 @@
+* {
+  margin: 0;
+  padding: 0;
+}
+
+*,
+*::before,
+*::after {
+  box-sizing: inherit;
+}
+
+html {
+  box-sizing: border-box;
+  font-size: 62.5%;
+}
+
 body {
-  background-color: rgb(25, 25, 25);
+  background-color: rgb(15, 15, 15);
   color: rgb(224, 224, 224);
+  font-weight: 400;
+  line-height: 1.6;
+  min-height: calc(100vh - 8vw);
+}
+
+.container {
+  background: rgb(20, 20, 20);
+  padding: 2rem;
+  border: 1px solid rgb(75, 75, 75);
+  max-width: 90rem;
+  min-height: 117rem;
+  margin: 4vw auto;
 }
 
 header {
   display: flex;
   justify-content: center;
   align-items: center;
+  flex-direction: row;
+  justify-content: space-between;
+  padding: 0 4rem;
+}
+header nav ul {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: row;
+  gap: 10px;
+}
+header nav ul li {
+  list-style: none;
 }
 header form {
   height: auto;
@@ -16,7 +57,8 @@ header form {
   gap: 5px;
 }
 header button {
-  height: 25px;
+  height: 3em;
+  width: 6.5em;
   background: rgb(35, 91, 71);
   color: rgb(224, 224, 224);
   border: 1px solid rgb(75, 75, 75);
@@ -27,8 +69,9 @@ header button:hover {
   background: rgb(45, 119, 93);
 }
 header input {
-  height: 25px;
-  background: rgb(55, 55, 55);
+  height: 3em;
+  padding-left: 1em;
+  background: rgb(25, 25, 25);
   color: rgb(224, 224, 224);
   border: 1px solid rgb(75, 75, 75);
   border-radius: 5px;

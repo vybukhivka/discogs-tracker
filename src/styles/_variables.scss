@@ -1,7 +1,18 @@
+// colors
 $primaryBtn : rgb(35, 91, 71);
 $hoverBtn : rgb(45, 119, 93);
 $textColorWhite: rgb(224, 224, 224);
 $textColorBlack: rgb(50, 50, 50);
 $borderColor: rgb(75, 75, 75);
-$bgDark: rgb(25, 25, 25);
-$bgLight: rgb(55, 55, 55);
+$bgDark: rgb(15, 15, 15);
+$bgMid: rgb(20, 20, 20);
+$bgLight: rgb(25, 25, 25);
+
+// dimensions
+$bp-large: 78.15em; // 1250px
+$bp-medium: 61.25em; // 980px
+$bp-small: 37.5em; // 600px
+$bp-smallest: 31.25em; // 500px
+
+$nav-height: 3em;
+$nav-width: 6.5em;
