@@ -71,7 +71,7 @@ header button:hover {
 header input {
   height: 3em;
   padding-left: 1em;
-  background: rgb(25, 25, 25);
+  background: rgb(30, 30, 30);
   color: rgb(224, 224, 224);
   border: 1px solid rgb(75, 75, 75);
   border-radius: 5px;
