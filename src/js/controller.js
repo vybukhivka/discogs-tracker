@@ -14,6 +14,7 @@ const timeout = function (s) {
 
 const showRelease = async function (releaseId) {
   try {
+    // 1. Loading release
     const res = await fetch(`https://api.discogs.com/releases/${releaseId}`);
     console.log(res);
     const data = await res.json();
@@ -38,6 +39,22 @@ const showRelease = async function (releaseId) {
       numForSale: data?.num_for_sale,
     }
     console.log(release)
+
+    // 2. Rendering release
+    const markup = `
+      <h1 class="release__title">
+        <span>${release.artist} - ${release.title}</span>
+      </h1> 
+
+      <div class="release__details">
+        <div class="release__info">
+          <p class="release__info-data--price">${release.formats}: ${release.lowestPrice}$ (lowest) <span class="dim">${release.numForSale} offers</span></p>
+          <p class="release__info-data--genre">${release.genre} (${release.styles})</p>
+          <p class="release__info-data--format">(${release.styles})</p>
+        </div>
+      </div>
+    `
+    recipeContainer.insertAdjacentHTML('afterbegin', markup)
   } catch (error) {
     if (error instanceof TypeError) {
       console.error(`Can't fetch release data :( \n\n${error}`);
@@ -47,4 +64,4 @@ const showRelease = async function (releaseId) {
   }
 };
 
-showRelease(24772565);
+showRelease(15833959);
