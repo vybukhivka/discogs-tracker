@@ -7,6 +7,12 @@ $borderColor: rgb(75, 75, 75);
 $bgDark: rgb(15, 15, 15);
 $bgMid: rgb(20, 20, 20);
 $bgLight: rgb(30, 30, 30);
+$darkBgGradient: linear-gradient(to bottom, 
+  rgb(30, 30, 30), // Start with bgLight
+  rgb(25, 25, 25), // Mid color for a smoother transition
+  rgb(20, 20, 20), // Original mid color
+  rgb(15, 15, 15)  // End with bgDark
+);
 
 // dimensions
 $bp-large: 78.15em; // 1250px

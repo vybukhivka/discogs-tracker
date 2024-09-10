@@ -9,8 +9,8 @@
   background: $bgMid;
   padding: 2rem;
   border: 1px solid $borderColor;
-  max-width: 100rem;
-  min-height: 65rem;
+  max-width: 80rem;
+  min-height: 45rem;
   margin: 5vw auto;
   display: grid;
   grid-template-columns: 25% 50% 25%;
@@ -29,6 +29,7 @@
   grid-column-end: 2;
   grid-row-start: 1;
   grid-row-end: 2;
+  width: 100%;
 }
 
 .header .nav {
@@ -37,6 +38,7 @@
   grid-row-start: -5;
   grid-row-end: -4;
   place-self: center;
+  padding-right: 3em;
 }
 
 .release {
@@ -44,6 +46,39 @@
   grid-column-end: 4;
   grid-row-start: 2;
   grid-row-end: 5;
+  width: 90%;
+  height: 90%;
+  padding: 2em;
+  display: flex;
+  gap: 2em;
+  align-self: center;
+  justify-self: center;
+  flex-direction: column;
+  border: 1px solid $borderColor;
+  
+  .release__title {
+    align-self: flex-start;
+  }
+
+  .release__details {
+    align-self: flex-start;
+    width: auto;
+    height: auto;
+  }
+
+  .release__info {
+    height: 5em;
+    display: flex;
+    flex-direction: column 
+  }
+
+  .release__info-data--price {
+    font-size: 1.5em;
+    margin-bottom: 0.5em;
+    .dim {
+      color: rgb(114, 113, 113);
+    }
+  }
 }
 
 header {
@@ -78,6 +113,7 @@ header {
   }
   input {
     height: $nav-height;
+    width: 14em;
     padding-left: 1em;
     background: $bgLight;
     color: $textColorWhite;
