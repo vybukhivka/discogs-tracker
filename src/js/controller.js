@@ -12,9 +12,9 @@ const timeout = function (s) {
 
 ///////////////////////////////////////
 
-const showRelease = async function () {
+const showRelease = async function (releaseId) {
   try {
-    const res = await fetch("https://api.discogs.com/releases/24772565");
+    const res = await fetch(`https://api.discogs.com/releases/${releaseId}`);
     console.log(res);
     const data = await res.json();
     if (!res.ok)
@@ -47,4 +47,4 @@ const showRelease = async function () {
   }
 };
 
-showRelease();
+showRelease(24772565);
