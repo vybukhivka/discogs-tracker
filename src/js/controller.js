@@ -1,4 +1,9 @@
-const recipeContainer = document.querySelector('.release');
+import keys from "./keys";
+
+const {consumer, secret} = keys
+
+const releaseContainer = document.querySelector('.release');
+const searchContainer = ''
 
 const timeout = function (s) {
   return new Promise(function (_, reject) {
@@ -8,20 +13,39 @@ const timeout = function (s) {
   });
 };
 
-// https://api.discogs.com/releases/249504 --user-agent "FooBarApp/3.0"
-
-///////////////////////////////////////
-
-const showRelease = async function (releaseId) {
+export const fetchSearch = async function (query) {
+	searchContainer.innerHTML = 'Loading...'
   try {
-    // 1. Loading release
-    const res = await fetch(`https://api.discogs.com/releases/${releaseId}`);
-    console.log(res);
-    const data = await res.json();
-    if (!res.ok)
-      throw new Error(`Can't fetch release data :( \n ${res.status} `);
+    const res = await fetch(`https://api.discogs.com/database/search?q=${query}&key=${consumer}&secret=${secret}`);
 
-    console.log(data);
+    const data = await res.json();
+
+    if (!res.ok)
+      throw new Error(`Can't fetch release data :( ${res.status} `);
+
+    const releaseList = data.results.slice(1)
+			.filter(item => item.type = "release")
+
+		return releaseList
+  } catch (error) {
+    if (error instanceof TypeError) {
+      console.error(`Can't fetch release data :( ${error}`);
+    } else {
+      console.error(error.message);
+    }
+  }
+};
+
+export const fetchRelease = async function (releaseId) {
+	releaseContainer.innerHTML = 'Loading...'
+  try {
+    const res = await fetch(`https://api.discogs.com/releases/${releaseId}`);
+
+    const data = await res.json();
+
+    if (!res.ok)
+      throw new Error(`Can't fetch release data :( ${res.status} `);
+
     let {release} = data 
     release = {
       id: data.id,
@@ -38,30 +62,14 @@ const showRelease = async function (releaseId) {
       lowestPrice: data?.lowest_price,
       numForSale: data?.num_for_sale,
     }
-    console.log(release)
 
-    // 2. Rendering release
-    const markup = `
-      <h1 class="release__title">
-        <span>${release.artist} - ${release.title}</span>
-      </h1> 
-
-      <div class="release__details">
-        <div class="release__info">
-          <p class="release__info-data--price">${release.formats}: ${release.lowestPrice}$ (lowest) <span class="dim">${release.numForSale} offers</span></p>
-          <p class="release__info-data--genre">${release.genre} (${release.styles})</p>
-          <p class="release__info-data--format">(${release.styles})</p>
-        </div>
-      </div>
-    `
-    recipeContainer.insertAdjacentHTML('afterbegin', markup)
+		return release
   } catch (error) {
     if (error instanceof TypeError) {
-      console.error(`Can't fetch release data :( \n\n${error}`);
+      console.error(`Can't fetch release data :( ${error}`);
     } else {
-      alert(error.message);
+      console.error(error.message);
     }
   }
 };
 
-showRelease(15833959);
