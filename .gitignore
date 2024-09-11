@@ -10,5 +10,8 @@ dist/
 # Logs
 npm-debug.log*
 
+# Api Keys
+keys.js
+
 # Environment variable files
 .env

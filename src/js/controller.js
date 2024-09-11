@@ -1,4 +1,4 @@
-const recipeContainer = document.querySelector('.release');
+const releaseContainer = document.querySelector('.release');
 
 const timeout = function (s) {
   return new Promise(function (_, reject) {
@@ -8,14 +8,13 @@ const timeout = function (s) {
   });
 };
 
-// https://api.discogs.com/releases/249504 --user-agent "FooBarApp/3.0"
-
 ///////////////////////////////////////
 
 const showRelease = async function (releaseId) {
-  try {
+  const searchLink = `https://api.discogs.com/releases/${releaseId}`
+    try {
     // 1. Loading release
-    const res = await fetch(`https://api.discogs.com/releases/${releaseId}`);
+    const res = await fetch(searchLink);
     console.log(res);
     const data = await res.json();
     if (!res.ok)
@@ -54,14 +53,15 @@ const showRelease = async function (releaseId) {
         </div>
       </div>
     `
-    recipeContainer.insertAdjacentHTML('afterbegin', markup)
+
+    releaseContainer.insertAdjacentHTML('afterbegin', markup)
   } catch (error) {
     if (error instanceof TypeError) {
       console.error(`Can't fetch release data :( \n\n${error}`);
     } else {
-      alert(error.message);
+      console.error(error.message);
     }
   }
 };
 
-showRelease(15833959);
+showRelease(24772565);
