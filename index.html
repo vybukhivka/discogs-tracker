@@ -4,7 +4,7 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <link rel="stylesheet" href="./src/styles/style.scss">
-  <script type="module" src="./src/js/controller.js"></script>
+  <script type="module" src="./src/js/main.js"></script>
   <title>Discogs Price Tracker</title>
 </head>
 
@@ -12,7 +12,10 @@
   <div class="container">
     <header class="header">
       <form class="search">
-        <input type="text" class="search__field" placeholder="Start typing..." />
+        <input type="text" class="search__field" placeholder="Enter release ID..." />
+				<button class="search__btn">
+					<span>Search</span>
+				</button>
       </form>
 
       <nav class="nav">
