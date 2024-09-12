@@ -5,6 +5,7 @@ const {consumer, secret} = keys
 const releaseContainer = document.querySelector('.release');
 const searchContainer = ''
 
+// TODO setup request timeout
 const timeout = function (s) {
   return new Promise(function (_, reject) {
     setTimeout(function () {

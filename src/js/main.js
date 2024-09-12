@@ -4,12 +4,12 @@ const releaseContainer = document.querySelector('.release');
 const searchButton = document.querySelector('.search__btn')
 const searchInput = document.querySelector('.search__field')
 const searchResults = document.querySelector('.search-results')
-const releaseButton = document.querySelector('.release--btn')
 
 const handleSearch = () => {
 	const userSearchPrompt = searchInput.value;
 	clearInput()
 
+	// TODO user input validation
 	// if(isNaN(+userSearchPrompt) || userSearchPrompt === '') 
 	// 	return console.error('Input value is not a number')
 	
@@ -46,6 +46,7 @@ const renderSearchResults = parsedList => {
 	searchResults.insertAdjacentHTML('afterbegin', markup)
 }
 
+// TODO add image from search
 const renderRelease = release => {
 	const markup = `
 		<h1 class="release__title">
@@ -58,6 +59,7 @@ const renderRelease = release => {
 				<p class="release__info-data--genre">Genre: ${release.genre}</p>
 				<p class="release__info-data--format">Style: ${release.styles}</p>
 			</div>
+			<button class="release__save--btn"><span>Save</span></button>
 		</div>
 	`
 	releaseContainer.innerHTML = ''
@@ -68,6 +70,7 @@ const clearInput = () => {
 	searchInput.value = ''
 }
 
+// Listeners
 searchButton.addEventListener('click', e => {
 	e.preventDefault()
 	handleSearch()
