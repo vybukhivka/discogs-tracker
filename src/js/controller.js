@@ -1,4 +1,5 @@
 import keys from "./keys";
+import { isInStorage } from "./utils";
 
 const {consumer, secret} = keys
 

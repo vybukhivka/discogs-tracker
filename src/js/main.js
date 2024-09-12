@@ -3,11 +3,12 @@ import { fetchRelease, fetchSearch } from "./controller"
 const releaseContainer = document.querySelector('.release');
 const bookmarksContainer = document.querySelector('.bookmarks')
 const bookmarksButton = document.querySelector('.nav__btn--bookmarks')
-const searchButton = document.querySelector('.search__btn')
+const releaseSaveButton = document.querySelector('.release__save--btn')
 const searchInput = document.querySelector('.search__field')
 const searchResults = document.querySelector('.search-results')
 
 let bookmarksIsOpen = false;
+let releaseInStorage = false;
 
 const handleSearch = () => {
 	const userSearchPrompt = searchInput.value;
@@ -53,6 +54,7 @@ const renderSearchResults = parsedList => {
 // fix bug: click on empty container
 // triggers render
 const renderRelease = release => {
+	releaseInStorage = isInStorage(release.id)
 	const markup = `
 		<h1 class="release__title">
 			<span>${release.artist} - ${release.title}</span>
@@ -64,7 +66,7 @@ const renderRelease = release => {
 				<p class="release__info-data--genre">Genre: ${release.genre}</p>
 				<p class="release__info-data--format">Style: ${release.styles}</p>
 			</div>
-			<button class="release__save--btn" data-id="${release.id}">Save</button>
+			<button class="release__save--btn" data-id="${release.id}">${releaseInStorage ? 'Remove' : 'Save'}</button>
 		</div>
 	`
 	releaseContainer.innerHTML = ''
@@ -73,7 +75,8 @@ const renderRelease = release => {
 
 const addToBookmark = (release) => {
 	const releaseData = { id: release.id, artist: release.artist, title: release.title }
-	localStorage.setItem(`${release.artist} - ${release.title}`, release.id)		
+	localStorage.setItem(release.id, `${release.artist} - ${release.title}`)		
+	return Promise.resolve(releaseData) 
 }
 
 const getBookmark = (title) => {
@@ -85,8 +88,10 @@ const getBookmark = (title) => {
 const renderBookmarks = () => {
 	// if(bookmarksIsOpen) return  
 	let bookmakrsMarkup = '';
+	bookmarksContainer.innerHTML = ''
+	
 
-	for (const [title, id] of Object.entries(localStorage)) {
+	for (const [id, title] of Object.entries(localStorage)) {
 		bookmakrsMarkup += `<li class="bookmark-item"><button class="bookmark--btn" data-id="${id}">${title}</button></li>`
 	}
 
@@ -100,10 +105,10 @@ const renderBookmarks = () => {
 	bookmarksContainer.insertAdjacentHTML('afterbegin', markup)
 }
 
-
-
 // TODO: complete this function
-const deleteBookmark = (title) => {}
+const deleteBookmark = id => {
+	localStorage.removeItem(id)
+}
 
 const clearInput = () => {
 	searchInput.value = ''
@@ -120,26 +125,58 @@ searchInput.addEventListener('keydown', e => {
 
 // Display selected release
 searchResults.addEventListener('click', e => {
-	e.preventDefault()
+	if(e.target.className === "release--btn") {
+		e.preventDefault()
+		const releaseId = e.target.dataset.id
 
-	const releaseId = e.target.dataset.id
-
-	fetchRelease(releaseId)
-		.then(renderRelease)
-		.catch(e => console.error('Problem fetching release', e))
+			fetchRelease(releaseId)
+				.then(renderRelease)
+				.catch(e => console.error('Problem fetching release', e))
+	} 
 })
 
-// Save release to bookmarks
+bookmarksContainer.addEventListener('click', e => {
+	if(e.target.className === 'bookmark--btn') {
+		e.preventDefault()
+		const releaseId = e.target.dataset.id
+
+			fetchRelease(releaseId)
+				.then(renderRelease)
+				.catch(e => console.error('Problem fetching release', e))
+	} 
+})
+
+const isInStorage = id => {
+	 return (Object.keys(localStorage).includes(String(id)))
+}
+// isInStorage(24772565)
+
+// Add or remove release from bookmarks
 releaseContainer.addEventListener('click', e => {
-	e.preventDefault()
+	if(e.target.className === 'release__save--btn' && e.target.outerText === 'Save') {
+		e.preventDefault()
 
-	const releaseId = e.target.dataset.id
-	console.log('button clicked', e.target.className === 'release__save--btn')
+		const releaseId = e.target.dataset.id
 
-	if(e.target.className === 'release__save--btn') {
-		console.log(releaseId)
 		fetchRelease(releaseId)
 			.then(addToBookmark)
+			.then(() => {
+				document.querySelector('.release__save--btn').textContent = 'Remove'
+			})
+			.then(renderBookmarks)
+	}
+	
+	if(e.target.className === 'release__save--btn' && e.target.outerText === 'Remove') {
+		e.preventDefault()
+
+		const releaseId = e.target.dataset.id
+
+		fetchRelease(releaseId)
+			.then(deleteBookmark(releaseId))
+			.then(() => {
+				document.querySelector('.release__save--btn').textContent = 'Save'
+			})
+			.then(renderBookmarks)
 	}
 })
 
