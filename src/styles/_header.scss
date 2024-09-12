@@ -14,11 +14,11 @@
   margin: 5vw auto;
   display: grid;
   grid-template-columns: 25% 50% 25%;
-  grid-template-rows: 80% 10% 5% 5% 
+  grid-template-rows: 1fr 1fr 1fr 
 }
 
 .header {
-  grid-column-start: 1;
+  grid-column-start: 2;
   grid-column-end: 4;
   grid-row-start: -5;
   grid-row-end: -4;
@@ -27,9 +27,12 @@
 .search-results {
   grid-column-start: 1;
   grid-column-end: 2;
-  grid-row-start: 3;
-  grid-row-end: 5;
+  grid-row-start: 1;
+  grid-row-end: 4;
   margin-top: 1em;
+  max-height: 35em;
+  overflow: scroll;
+  
 }
 
 .search-results li {
@@ -51,13 +54,23 @@
   }
 }
 
-.header > .search {
+form .search {
   grid-column-start: 1;
   grid-column-end: 2;
   grid-row-start: 1;
   grid-row-end: 2;
   width: 100%;
   gap: 1em
+}
+
+form .search__field {
+    height: $nav-height;
+    width: 100%;
+    padding-left: 1em;
+    background: $bgLight;
+    color: $textColorWhite;
+    border: 1px solid $borderColor;
+    border-radius: 5px;
 }
 
 .header .nav {
@@ -69,9 +82,9 @@
 
 .release {
   grid-column-start: 2;
-  grid-column-end: 4;
-  grid-row-start: 2;
-  grid-row-end: 5;
+  grid-column-end: 3;
+  grid-row-start: 1;
+  grid-row-end: 4;
   font-size: 1em;
   width: 90%;
   height: 90%;
@@ -122,10 +135,35 @@
   }
 }
 
+.bookmarks {
+  grid-column-start: 3;
+  grid-column-end: 4;
+  grid-row-start: -4;
+  grid-row-end: -1;
+  margin-top: 1em;
+
+  .bookmark--btn {
+    width: 80%;
+    background: transparent;
+    color: $textColorWhite;
+    text-align: left;
+    padding: 5px;
+    border: none;
+    border-radius: 5px;
+    &:hover {
+      background: rgba($color: #FFFFFF, $alpha: 0.1);
+    }
+  }
+  
+  .bookmark-item {
+    list-style: none;
+    margin-bottom: 10px;
+  }
+}
+
 header {
   @include flexCenter(row);
-  justify-content: space-between;
-  align-items: self-start;
+  justify-content: flex-end;
   
   nav ul{
     @include flexCenter(row);
@@ -133,13 +171,6 @@ header {
   }
   nav ul li {
     list-style: none
-  }
-  form {
-    height: auto;
-    width: auto;
-    display: flex;
-    align-items: center;
-    gap: 5px
   }
   button {
     height: $nav-height;

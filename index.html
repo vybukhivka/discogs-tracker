@@ -8,15 +8,10 @@
   <title>Discogs Price Tracker</title>
 </head>
 
+<html>
 <body>
   <div class="container">
     <header class="header">
-      <form class="search">
-        <input type="text" class="search__field" placeholder="Enter release ID..." />
-				<button class="search__btn">
-					<span>Search</span>
-				</button>
-      </form>
 
       <nav class="nav">
         <ul class="nav__list">
@@ -29,44 +24,28 @@
             <button class="nav__btn nav__btn--bookmarks">
               <span>Bookmarks</span>
             </button>
-            <div class="bookmarks">
-              <ul class="bookmarks__list">
-                <div class="message">
-                </div>
-              </ul>
-            </div>
           </li>
         </ul>
       </nav>
     </header>
 
+		<form class="search">
+			<input type="text" class="search__field" placeholder="Enter release ID..." />
+			<button class="search__btn">
+				<span>Search</span>
+			</button>
+		</form>
     <div class="search-results">
       <ul class="results">
-        <!-- preview results -->
       </ul>
-
-      <div class="pagination">
-        <!-- pagination -->
-      </div>
-      <p class="copyright">
-        <!-- copyright -->
-      </p>
-    </div>
+		</div>
 
     <div class="release">
     </div>
+
+		<div class="bookmarks">
+		</div>
   </div>
 
-  <!-- <div class="overlay hidden"></div>
-  <div class="add-release-window hidden">
-    <button class="btn--close-modal">&times;</button>
-    <form action="" class="upload">
-      <div class="upload__column">
-        <h3 class="uploading__heading">Release data</h3>
-        <label>Title</label>
-        <input type="TEST" required name="title" type="text" />
-      </div>
-    </form>
-  </div> -->
 </body>
 </html>

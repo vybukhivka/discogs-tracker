@@ -1,10 +1,11 @@
 import { fetchRelease, fetchSearch } from "./controller"
 
 const releaseContainer = document.querySelector('.release');
+const bookmarksContainer = document.querySelector('.bookmarks')
+const bookmarksButton = document.querySelector('.nav__btn--bookmarks')
 const searchButton = document.querySelector('.search__btn')
 const searchInput = document.querySelector('.search__field')
 const searchResults = document.querySelector('.search-results')
-const bookmarksButton = document.querySelector('.nav__btn--bookmarks')
 
 let bookmarksIsOpen = false;
 
@@ -49,6 +50,8 @@ const renderSearchResults = parsedList => {
 }
 
 // TODO: add image from search
+// fix bug: click on empty container
+// triggers render
 const renderRelease = release => {
 	const markup = `
 		<h1 class="release__title">
@@ -94,7 +97,7 @@ const renderBookmarks = () => {
 			</ul>	
 		</div>
 	`
-	searchResults.insertAdjacentHTML('afterbegin', markup)
+	bookmarksContainer.insertAdjacentHTML('afterbegin', markup)
 }
 
 
