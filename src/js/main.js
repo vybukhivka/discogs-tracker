@@ -112,8 +112,9 @@ const clearInput = () => {
 // NOTE: Listeners
 
 // Search 
-searchButton.addEventListener('click', e => {
-	e.preventDefault()
+searchInput.addEventListener('keydown', e => {
+	// e.preventDefault()
+	if(e.key !== 'Enter') return 
 	handleSearch()
 })
 
