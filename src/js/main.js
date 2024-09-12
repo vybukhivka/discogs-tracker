@@ -73,7 +73,6 @@ searchButton.addEventListener('click', e => {
 	handleSearch()
 })
 
-// TODO: Event delegation <<<
 searchResults.addEventListener('click', e => {
 	e.preventDefault()
 
