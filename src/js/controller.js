@@ -1,10 +1,6 @@
 import keys from "./keys";
-import { isInStorage } from "./utils";
 
 const {consumer, secret} = keys
-
-const releaseContainer = document.querySelector('.release');
-const searchContainer = ''
 
 // TODO: setup request timeout
 const timeout = function (s) {
@@ -30,11 +26,9 @@ export const fetchSearch = async function (query) {
     const releaseList = data.results.slice(1)
 			.filter(item => item.type = "release")
 
-		// searchContainer.innerHTML = ''
 		return releaseList
   } catch (error) {
     if (error instanceof TypeError) {
-			searchContainer.innerHTML = `Can't fetch release data :( ${error}`
       console.error(`Can't fetch release data :( ${error}`);
     } else {
       console.error(error.message);
