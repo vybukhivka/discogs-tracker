@@ -5,7 +5,7 @@ const {consumer, secret} = keys
 const releaseContainer = document.querySelector('.release');
 const searchContainer = ''
 
-// TODO setup request timeout
+// TODO: setup request timeout
 const timeout = function (s) {
   return new Promise(function (_, reject) {
     setTimeout(function () {
@@ -14,8 +14,10 @@ const timeout = function (s) {
   });
 };
 
+// TODO: search by artist name
+// loading spinner for fetch and render
 export const fetchSearch = async function (query) {
-	searchContainer.innerHTML = 'Loading...'
+	// searchContainer.innerHTML = 'Loading...'
   try {
     const res = await fetch(`https://api.discogs.com/database/search?q=${query}&key=${consumer}&secret=${secret}`);
 
@@ -27,9 +29,11 @@ export const fetchSearch = async function (query) {
     const releaseList = data.results.slice(1)
 			.filter(item => item.type = "release")
 
+		// searchContainer.innerHTML = ''
 		return releaseList
   } catch (error) {
     if (error instanceof TypeError) {
+			searchContainer.innerHTML = `Can't fetch release data :( ${error}`
       console.error(`Can't fetch release data :( ${error}`);
     } else {
       console.error(error.message);
@@ -38,7 +42,7 @@ export const fetchSearch = async function (query) {
 };
 
 export const fetchRelease = async function (releaseId) {
-	releaseContainer.innerHTML = 'Loading...'
+	// releaseContainer.innerHTML = 'Loading...'
   try {
     const res = await fetch(`https://api.discogs.com/releases/${releaseId}`);
 
@@ -47,7 +51,7 @@ export const fetchRelease = async function (releaseId) {
     if (!res.ok)
       throw new Error(`Can't fetch release data :( ${res.status} `);
 
-    let {release} = data 
+   	let {release} = data 
     release = {
       id: data.id,
       artist: data.artists_sort,

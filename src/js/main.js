@@ -4,12 +4,15 @@ const releaseContainer = document.querySelector('.release');
 const searchButton = document.querySelector('.search__btn')
 const searchInput = document.querySelector('.search__field')
 const searchResults = document.querySelector('.search-results')
+const bookmarksButton = document.querySelector('.nav__btn--bookmarks')
+
+let bookmarksIsOpen = false;
 
 const handleSearch = () => {
 	const userSearchPrompt = searchInput.value;
 	clearInput()
 
-	// TODO user input validation
+	// TODO: user input validation
 	// if(isNaN(+userSearchPrompt) || userSearchPrompt === '') 
 	// 	return console.error('Input value is not a number')
 	
@@ -42,11 +45,10 @@ const renderSearchResults = parsedList => {
 			</ul>	
 		</div>
 	`
-	releaseContainer.innerHTML = ''
 	searchResults.insertAdjacentHTML('afterbegin', markup)
 }
 
-// TODO add image from search
+// TODO: add image from search
 const renderRelease = release => {
 	const markup = `
 		<h1 class="release__title">
@@ -59,23 +61,60 @@ const renderRelease = release => {
 				<p class="release__info-data--genre">Genre: ${release.genre}</p>
 				<p class="release__info-data--format">Style: ${release.styles}</p>
 			</div>
-			<button class="release__save--btn"><span>Save</span></button>
+			<button class="release__save--btn" data-id="${release.id}">Save</button>
 		</div>
 	`
 	releaseContainer.innerHTML = ''
 	releaseContainer.insertAdjacentHTML('afterbegin', markup)
 }
 
+const addToBookmark = (release) => {
+	const releaseData = { id: release.id, artist: release.artist, title: release.title }
+	localStorage.setItem(`${release.artist} - ${release.title}`, release.id)		
+}
+
+const getBookmark = (title) => {
+	const storedRelease = localStorage.getItem(storedRelease)
+	if(!storedRelease) throw new Error('No such release')
+	return JSON.parse(storedRelease)
+}
+
+const renderBookmarks = () => {
+	// if(bookmarksIsOpen) return  
+	let bookmakrsMarkup = '';
+
+	for (const [title, id] of Object.entries(localStorage)) {
+		bookmakrsMarkup += `<li class="bookmark-item"><button class="bookmark--btn" data-id="${id}">${title}</button></li>`
+	}
+
+	const markup = `
+		<div class="bookmarks-block">
+			<ul class="bookmarks-list">
+				${bookmakrsMarkup}
+			</ul>	
+		</div>
+	`
+	searchResults.insertAdjacentHTML('afterbegin', markup)
+}
+
+
+
+// TODO: complete this function
+const deleteBookmark = (title) => {}
+
 const clearInput = () => {
 	searchInput.value = ''
 }
 
-// Listeners
+// NOTE: Listeners
+
+// Search 
 searchButton.addEventListener('click', e => {
 	e.preventDefault()
 	handleSearch()
 })
 
+// Display selected release
 searchResults.addEventListener('click', e => {
 	e.preventDefault()
 
@@ -85,4 +124,22 @@ searchResults.addEventListener('click', e => {
 		.then(renderRelease)
 		.catch(e => console.error('Problem fetching release', e))
 })
+
+// Save release to bookmarks
+releaseContainer.addEventListener('click', e => {
+	e.preventDefault()
+
+	const releaseId = e.target.dataset.id
+	console.log('button clicked', e.target.className === 'release__save--btn')
+
+	if(e.target.className === 'release__save--btn') {
+		console.log(releaseId)
+		fetchRelease(releaseId)
+			.then(addToBookmark)
+	}
+})
+
+bookmarksButton.addEventListener('click', renderBookmarks)
+
+// Get release from bookmarks
 
