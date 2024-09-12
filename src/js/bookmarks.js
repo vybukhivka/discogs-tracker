@@ -4,7 +4,6 @@ export const addToBookmark = (release) => {
 	return Promise.resolve(releaseData) 
 }
 
-// TODO: complete this function
 export const deleteBookmark = id => {
 	localStorage.removeItem(id)
 }

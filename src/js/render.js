@@ -5,16 +5,21 @@ const releaseContainer = document.querySelector('.release');
 const bookmarksContainer = document.querySelector('.bookmarks')
 const searchField = document.querySelector('.search')
 const hideButton = document.createElement('button')
+const bookmarksButton = document.querySelector('.nav__btn--bookmarks')
 
-export const closeSearch = state => {
-	if(state) {
+export const closeSearch = () => {
 		searchResults.innerHTML = ''	
 		hideButton.remove()
+}
+
+export const closeBookmarks = state => {
+	if(state) {
+		bookmarksContainer.innerHTML = ''	
+		bookmarksButton.remove()
 	}
 }
 
-export const renderSearchResults = ( parsedList, state ) => {
-	if(!state) {
+export const renderSearchResults = parsedList => {
 		const markup = `
 			<div class="search-block">
 				<ul class="search-list">
@@ -27,10 +32,9 @@ export const renderSearchResults = ( parsedList, state ) => {
 		hideButton.textContent = "✕"
 		hideButton.addEventListener('click', closeSearch)
 		searchField.append(hideButton)
+		searchResults.innerHTML = ''
 		searchResults.insertAdjacentHTML('afterbegin', markup)
-	}
 }
-
 
 // TODO: add image from search
 export const renderRelease = release => {
@@ -53,22 +57,29 @@ export const renderRelease = release => {
 	releaseContainer.insertAdjacentHTML('afterbegin', markup)
 }
 
-export const renderBookmarks = () => {
-	// if(bookmarksIsOpen) return  
-	let bookmakrsMarkup = '';
-	bookmarksContainer.innerHTML = ''
+export const renderBookmarks = (state) => {
+	console.log('state', state)
+	if(state) {
+		let bookmakrsMarkup = '';
+		bookmarksContainer.innerHTML = ''
 
-	for (const [id, title] of Object.entries(localStorage)) {
-		bookmakrsMarkup += `<li class="bookmark-item"><button class="bookmark--btn" data-id="${id}">${title}</button></li>`
+		for (const [id, title] of Object.entries(localStorage)) {
+			bookmakrsMarkup += `<li class="bookmark-item"><button class="bookmark--btn" data-id="${id}">${title}</button></li>`
+		}
+
+		const markup = `
+			<div class="bookmarks-block">
+				<ul class="bookmarks-list">
+					${bookmakrsMarkup}
+				</ul>	
+			</div>
+		`
+		bookmarksContainer.innerHTML = ''
+		bookmarksContainer.insertAdjacentHTML('afterbegin', markup)
 	}
 
-	const markup = `
-		<div class="bookmarks-block">
-			<ul class="bookmarks-list">
-				${bookmakrsMarkup}
-			</ul>	
-		</div>
-	`
-	bookmarksContainer.insertAdjacentHTML('afterbegin', markup)
+	if(!state) {
+		bookmarksContainer.innerHTML = ''
+	}
 }
 

@@ -2,6 +2,7 @@ import { fetchRelease } from "./controller.js"
 import { renderRelease, renderBookmarks } from './render.js'
 import { handleSearch } from "./search.js";
 import { addToBookmark, deleteBookmark } from "./bookmarks.js";
+import state from "./state.js";
 
 const releaseContainer = document.querySelector('.release');
 const bookmarksContainer = document.querySelector('.bookmarks')
@@ -9,7 +10,8 @@ const bookmarksButton = document.querySelector('.nav__btn--bookmarks')
 const searchInput = document.querySelector('.search__field')
 const searchResults = document.querySelector('.search-results')
 
-// NOTE: Listeners
+let { bookmarksIsOpen } = state;
+
 // Search 
 searchInput.addEventListener('keydown', e => {
 	// e.preventDefault()
@@ -17,7 +19,7 @@ searchInput.addEventListener('keydown', e => {
 	handleSearch()
 })
 
-// Display selected release
+// Display selected release in search
 searchResults.addEventListener('click', e => {
 	if(e.target.className === "release--btn") {
 		e.preventDefault()
@@ -29,6 +31,7 @@ searchResults.addEventListener('click', e => {
 	} 
 })
 
+// Display selected release in bookmarks
 bookmarksContainer.addEventListener('click', e => {
 	if(e.target.className === 'bookmark--btn') {
 		e.preventDefault()
@@ -39,10 +42,6 @@ bookmarksContainer.addEventListener('click', e => {
 				.catch(e => console.error('Problem fetching release', e))
 	} 
 })
-
-const isInStorage = id => {
-	 return (Object.keys(localStorage).includes(String(id)))
-}
 
 // Add or remove release from bookmarks
 releaseContainer.addEventListener('click', e => {
@@ -56,7 +55,7 @@ releaseContainer.addEventListener('click', e => {
 			.then(() => {
 				document.querySelector('.release__save--btn').textContent = 'Remove'
 			})
-			.then(renderBookmarks)
+			.then(renderBookmarks(bookmarksIsOpen))
 	}
 	
 	if(e.target.className === 'release__save--btn' && e.target.outerText === 'Remove') {
@@ -69,9 +68,13 @@ releaseContainer.addEventListener('click', e => {
 			.then(() => {
 				document.querySelector('.release__save--btn').textContent = 'Save'
 			})
-			.then(renderBookmarks)
+			.then(renderBookmarks(bookmarksIsOpen))
 	}
 })
 
-bookmarksButton.addEventListener('click', renderBookmarks)
+// Open bookmarks
+bookmarksButton.addEventListener('click', () => {
+		bookmarksIsOpen = !bookmarksIsOpen
+		renderBookmarks(bookmarksIsOpen)
+})
 
