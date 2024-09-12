@@ -1,8 +1,9 @@
 import keys from "./keys";
 
+const spinner = document.querySelector('.spinner')
+
 const {consumer, secret} = keys
 
-// TODO: setup request timeout
 const timeout = function (s) {
   return new Promise(function (_, reject) {
     setTimeout(function () {
@@ -11,12 +12,14 @@ const timeout = function (s) {
   });
 };
 
-// TODO: search by artist name
 // loading spinner for fetch and render
 export const fetchSearch = async function (query) {
-	// searchContainer.innerHTML = 'Loading...'
+	spinner.style.display = 'block'
   try {
-    const res = await fetch(`https://api.discogs.com/database/search?q=${query}&key=${consumer}&secret=${secret}`);
+    const res = await Promise.race([
+		fetch(`https://api.discogs.com/database/search?artist=${encodeURIComponent(query)}&key=${consumer}&secret=${secret}`),
+		timeout(10)
+		])
 
     const data = await res.json();
 
@@ -38,11 +41,16 @@ export const fetchSearch = async function (query) {
 
 export const fetchRelease = async function (releaseId) {
 	// releaseContainer.innerHTML = 'Loading...'
+	spinner.style.display = 'block'
   try {
-    const res = await fetch(`https://api.discogs.com/releases/${releaseId}`);
+    const res = await Promise.race([
+			fetch(`https://api.discogs.com/releases/${releaseId}?key=${consumer}&secret=${secret}`),
+			timeout(10)
+		])
 
     const data = await res.json();
 
+		console.log(data)
     if (!res.ok)
       throw new Error(`Can't fetch release data :( ${res.status} `);
 

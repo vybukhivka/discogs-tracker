@@ -9,6 +9,7 @@ const bookmarksContainer = document.querySelector('.bookmarks')
 const bookmarksButton = document.querySelector('.nav__btn--bookmarks')
 const searchInput = document.querySelector('.search__field')
 const searchResults = document.querySelector('.search-results')
+const spinner = document.querySelector('.spinner')
 
 let { bookmarksIsOpen } = state;
 
@@ -19,7 +20,7 @@ searchInput.addEventListener('keydown', e => {
 	handleSearch()
 })
 
-// Display selected release in search
+// Display selected release from search
 searchResults.addEventListener('click', e => {
 	if(e.target.className === "release--btn") {
 		e.preventDefault()
@@ -27,11 +28,12 @@ searchResults.addEventListener('click', e => {
 
 			fetchRelease(releaseId)
 				.then(renderRelease)
+				.then(() => spinner.style.display = 'none')
 				.catch(e => console.error('Problem fetching release', e))
 	} 
 })
 
-// Display selected release in bookmarks
+// Display selected release from bookmarks
 bookmarksContainer.addEventListener('click', e => {
 	if(e.target.className === 'bookmark--btn') {
 		e.preventDefault()
@@ -39,6 +41,7 @@ bookmarksContainer.addEventListener('click', e => {
 
 			fetchRelease(releaseId)
 				.then(renderRelease)
+				.then(() => spinner.style.display = 'none')
 				.catch(e => console.error('Problem fetching release', e))
 	} 
 })
@@ -56,6 +59,7 @@ releaseContainer.addEventListener('click', e => {
 				document.querySelector('.release__save--btn').textContent = 'Remove'
 			})
 			.then(renderBookmarks(bookmarksIsOpen))
+			.then(() => spinner.style.display = 'none')
 	}
 	
 	if(e.target.className === 'release__save--btn' && e.target.outerText === 'Remove') {
@@ -69,6 +73,7 @@ releaseContainer.addEventListener('click', e => {
 				document.querySelector('.release__save--btn').textContent = 'Save'
 			})
 			.then(renderBookmarks(bookmarksIsOpen))
+			.then(() => spinner.style.display = 'none')
 	}
 })
 

@@ -4,6 +4,7 @@ import { clearInput } from './utils';
 import state from './state'
 
 const searchInput = document.querySelector('.search__field')
+const spinner = document.querySelector('.spinner')
 
 let { searchIsOpen } = state
 
@@ -11,19 +12,15 @@ export const handleSearch = () => {
 	const userSearchPrompt = searchInput.value;
 	clearInput()
 
-	// TODO: user input validation
-	// if(isNaN(+userSearchPrompt) || userSearchPrompt === '') 
-	// 	return console.error('Input value is not a number')
-	
 	fetchSearch(userSearchPrompt)
 		.then(data => {
 			const parsedData = parseSearchResults(data)
 			return parsedData
 		})
 		.then(renderSearchResults)
+		.then(() => spinner.style.display = 'none')
 		.then(() => {
 			searchIsOpen = true
-			console.log(searchIsOpen)
 		})
 } 
 

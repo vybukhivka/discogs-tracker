@@ -1,4 +1,5 @@
 import { isInStorage } from "./utils.js"
+import state from "./state.js";
 
 const searchResults = document.querySelector('.search-results')
 const releaseContainer = document.querySelector('.release');
@@ -6,6 +7,8 @@ const bookmarksContainer = document.querySelector('.bookmarks')
 const searchField = document.querySelector('.search')
 const hideButton = document.createElement('button')
 const bookmarksButton = document.querySelector('.nav__btn--bookmarks')
+
+let { releaseInStorage } = state
 
 export const closeSearch = () => {
 		searchResults.innerHTML = ''	
@@ -36,15 +39,14 @@ export const renderSearchResults = parsedList => {
 		searchResults.insertAdjacentHTML('afterbegin', markup)
 }
 
-// TODO: add image from search
 export const renderRelease = release => {
 	releaseInStorage = isInStorage(release.id)
 	const markup = `
 		<h1 class="release__title">
 			<span>${release.artist} - ${release.title}</span>
 		</h1> 
-
 		<div class="release__details">
+			<img src=${release?.image?.uri150} alt="${release.title}-cover" />
 			<div class="release__info">
 				<p class="release__info-data--price">${release.formats || 'Unknown'}: ${release.numForSale > 0 ? release.lowestPrice + '$ ' + `<span class="dim">${release.numForSale} offers</span>` : 'No one sells it right now :(' }</p>
 				<p class="release__info-data--genre">Genre: ${release.genre}</p>
@@ -58,7 +60,6 @@ export const renderRelease = release => {
 }
 
 export const renderBookmarks = (state) => {
-	console.log('state', state)
 	if(state) {
 		let bookmakrsMarkup = '';
 		bookmarksContainer.innerHTML = ''

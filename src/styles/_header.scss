@@ -9,13 +9,33 @@
   background: lighten($primaryBtn, 10%);
 }
 
+.spinner {
+  display: none;
+  justify-self: flex-start;
+  position: relative;
+  left: -50em;
+  border: 4px solid rgba(0, 0, 0, 0.1); 
+  border-left-color: $primaryBtn; 
+  border-radius: 50%;
+  width: 2em;
+  height: 2em;
+  animation: spin 1s linear infinite; 
+}
+
+@keyframes spin {
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+
 .container {
   background: $bgMid;
   padding: 2rem;
   border: 1px solid $borderColor;
   max-width: 80rem;
   min-height: 45rem;
-  margin: 5vw auto;
+  margin: 8vw auto;
   display: grid;
   grid-template-columns: 25% 50% 25%;
   grid-template-rows: 1fr 1fr 1fr 
@@ -37,6 +57,7 @@
     left: -35px;
     height: 1.5em;
     width: 1.5em;
+    font-size: 0.9em;
     background: transparent;
     color: darken($textColorWhite, 40%);
     border: none;
@@ -117,6 +138,8 @@
   height: 90%;
   padding: 2em;
   display: flex;
+  position: relative;
+  top: -50px;
   gap: 2em;
   align-self: center;
   justify-self: center;
@@ -178,6 +201,7 @@
     color: $textColorWhite;
     text-align: left;
     padding: 5px;
+    margin-right: auto;
     border: none;
     border-radius: 5px;
     &:hover {
