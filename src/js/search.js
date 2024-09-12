@@ -1,8 +1,11 @@
 import { fetchSearch } from './controller';
 import { renderSearchResults } from './render'
 import { clearInput } from './utils';
+import state from './state'
 
 const searchInput = document.querySelector('.search__field')
+
+let { searchIsOpen } = state
 
 export const handleSearch = () => {
 	const userSearchPrompt = searchInput.value;
@@ -18,6 +21,10 @@ export const handleSearch = () => {
 			return parsedData
 		})
 		.then(renderSearchResults)
+		.then(() => {
+			searchIsOpen = true
+			console.log(searchIsOpen)
+		})
 } 
 
 export const parseSearchResults = searchList => {

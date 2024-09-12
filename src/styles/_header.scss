@@ -24,6 +24,25 @@
   grid-row-end: -4;
 }
 
+.search {
+  display: flex;
+  gap: 0.5em;
+  .hide-btn {
+    align-self: center;
+    position: relative;
+    left: -35px;
+    height: 1.5em;
+    width: 1.5em;
+    background: transparent;
+    color: darken($textColorWhite, 40%);
+    border: none;
+    border-radius: 5px;
+    &:hover {
+      background: rgb(50,50,50);
+    }
+  }
+} 
+
 .search-results {
   grid-column-start: 1;
   grid-column-end: 2;

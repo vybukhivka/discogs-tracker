@@ -43,7 +43,6 @@ bookmarksContainer.addEventListener('click', e => {
 const isInStorage = id => {
 	 return (Object.keys(localStorage).includes(String(id)))
 }
-// isInStorage(24772565)
 
 // Add or remove release from bookmarks
 releaseContainer.addEventListener('click', e => {
@@ -75,6 +74,4 @@ releaseContainer.addEventListener('click', e => {
 })
 
 bookmarksButton.addEventListener('click', renderBookmarks)
-
-// Get release from bookmarks
 
